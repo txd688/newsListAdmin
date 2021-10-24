@@ -1,0 +1,96 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		meta(http-equiv='X-UA-Compatible' content='IE=edge')
+		meta(name='viewport' content='width=device-width, initial-scale=1.0')
+		title 首页
+		style.
+			body,
+			html {
+			margin: 0;
+			padding: 0;
+			}
+			.wrap {
+			width: 600px;
+			margin: 40px auto;
+			padding: 50px;
+			}
+			a {
+			text-decoration: none;
+			color: rgba(0, 0, 0, .65);
+			}
+			#pagination {
+			text-align: center;
+			}
+			#pagination a {
+			height: 32px;
+			margin-right: 8px;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			vertical-align: middle;
+			min-width: 32px;
+			list-style: none;
+			background-color: #fff;
+			border: 1px solid #d9d9d9;
+			border-radius: 4px;
+			outline: 0;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			padding: 0 6px;
+			transition: none;
+			}
+			.active {
+			font-weight: 500 !important;
+			color: #1890ff !important;
+			background: #fff !important;
+			border-color: #1890ff !important;
+			}
+			ul {
+			margin: 0;
+			padding-bottom: 50px;
+			}
+			ul li {
+			list-style-type: none;
+			padding-bottom: 5px;
+			border-bottom: 1px solid #ccc;
+			}
+			ul li h3 {
+			font-size: 16px;
+			margin-bottom: 5px;
+			}
+			.info {
+			font-size: 14px;
+			text-align: right;
+			}
+			.del a{
+				color: red;
+				cursor: pointer;
+			}
+	body
+		.wrap
+			h3 今日新闻
+			ul#news-list
+				for val in  newsData
+					li
+						div
+							h3
+								a(href='#') #{val.title}
+							div.info
+								span.tips #{val.author}
+								span.time &nbsp;|&nbsp;#{val.addTime}
+							div.del
+								a(href='/admin/delList?id=' + val.id) 删除
+			#pagination
+				a.prev(href='/admin/showNewsList?pageSize='+ pageSize +'&page='+ (page <= 1 ? 1 : page - 1))
+					svg(viewBox='64 64 896 896' data-icon='left' width='1em' height='1em' fill='currentColor' aria-hidden='true' focusable='false')
+						path(d='M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 0 0 0 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z')
+				-	for(let i = 1;i <= Math.ceil(count / pageSize); i++)
+					a(href='/admin/showNewsList?pageSize='+ pageSize + '&page=' + i) #{i}
+				a.next(href='/admin/showNewsList?pageSize='+ pageSize +'&page='+ (page >= Math.ceil(count / pageSize) ? Math.ceil(count / pageSize) : page + 1))
+					svg(viewBox='64 64 896 896' data-icon='right' width='1em' height='1em' fill='currentColor' aria-hidden='true' focusable='false')
+						path(d='M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z')
+					
